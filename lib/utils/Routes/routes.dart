@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:untitled3/utils/Routes/routes_name.dart';
 import 'package:untitled3/view/login_view.dart';
 import 'package:untitled3/view/signup_view.dart';
+import 'package:untitled3/view/splash_view.dart';
 import '../../view/home_screen.dart';
 
 
@@ -12,6 +13,9 @@ class Routes{
     switch(settings.name){
       case  RoutesName.home:
         return MaterialPageRoute(builder: (context)=>HomeScreen());
+
+      case  RoutesName.splash:
+        return MaterialPageRoute(builder: (context)=>SplashView());
 
       case  RoutesName.login:
         return MaterialPageRoute(builder: (context)=>LoginView());

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled3/res/component/round_button.dart';
 import 'package:untitled3/utils/Routes/routes_name.dart';
-import 'package:untitled3/utils/utils.dart';
-import 'package:untitled3/view_model/auth_view_model.dart';
-class LoginView extends StatefulWidget {
-  const LoginView({Key? key}) : super(key: key);
+
+import '../res/component/round_button.dart';
+import '../utils/utils.dart';
+import '../view_model/auth_view_model.dart';
+
+
+class SignupView extends StatefulWidget {
+  const SignupView({Key? key}) : super(key: key);
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignupView> createState() => _SignupViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
-
+class _SignupViewState extends State<SignupView> {
   ValueNotifier<bool> _obscurePassword=  ValueNotifier<bool>(true);
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController =TextEditingController();
@@ -34,7 +36,7 @@ class _LoginViewState extends State<LoginView> {
     final authViewModel = Provider.of<AuthViewModel>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login View"),
+        title: Text("Sign Up View"),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -48,9 +50,9 @@ class _LoginViewState extends State<LoginView> {
                 Utils.focusChange(context, emailFocusNode, passwrordFocusNode);
               },
               decoration: InputDecoration(
-                hintText: "Email",
-                labelText: "Email",
-                prefixIcon: Icon(Icons.email)
+                  hintText: "Email",
+                  labelText: "Email",
+                  prefixIcon: Icon(Icons.email)
               ),
               controller: _emailController,
               keyboardType: TextInputType.emailAddress,
@@ -64,7 +66,7 @@ class _LoginViewState extends State<LoginView> {
                 decoration: InputDecoration(
                     suffixIcon: InkWell(
                         onTap: (){
-                          _obscurePassword.value=!_obscurePassword.value; 
+                          _obscurePassword.value=!_obscurePassword.value;
                         },
                         child: _obscurePassword.value ? Icon(Icons.visibility_outlined):Icon(Icons.visibility)),
                     hintText: "Password",
@@ -80,8 +82,8 @@ class _LoginViewState extends State<LoginView> {
             SizedBox(height: 40,),
 
             RoundButton(
-                loading: authViewModel.loading,
-                title: "Login", onPress: (){
+                loading: authViewModel.signUpLoading,
+                title: "SignUp", onPress: (){
               if(_emailController.text.isEmpty){
                 Utils.flushBarErrorMessege("Please Enter the email", context);
               }else if(_passwordController.text.isEmpty){
@@ -94,18 +96,17 @@ class _LoginViewState extends State<LoginView> {
                   'password': _passwordController.text.toString(),
                 };
                 Utils.flushBarErrorMessege("Api hit", context);
-                authViewModel.loginApi(data,context);
+                authViewModel.signUpApi(data,context);
               }
             }),
             SizedBox(height: 15,),
 
-            InkWell
-
-              (onTap: (){
-                Navigator.pushNamed(context, RoutesName.signUp);
-            },
+            InkWell(
+                onTap: (){
+                  Navigator.pushNamed(context, RoutesName.login);
+                },
                 child:
-            Text("Dont have an Acount ? SignUp"))
+            Text("Already have an Acount ? Logg In"))
           ],
         ),
       ),

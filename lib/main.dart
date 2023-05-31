@@ -19,7 +19,7 @@ void main() {
         ChangeNotifierProvider(create: (_)=> UserViewModel()),
       ],
         child :MaterialApp(
-        initialRoute: RoutesName.login,
+        initialRoute: RoutesName.splash,
         onGenerateRoute: Routes.generateRoute,
       )
       );
